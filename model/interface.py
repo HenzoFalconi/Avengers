@@ -202,14 +202,18 @@ class Interface():
     @staticmethod
     def ler_opcao_usuario(*metodos):
         opcao = input("\nDigite aqui: ")
-        os.system('cls')
+        os.system('cls')  # Limpa o console antes de executar
         try:
             if opcao.isdigit() and 1 <= int(opcao) <= len(metodos):
                 metodos[int(opcao) - 1]()
             else:
                 print("Opção inválida. Tente novamente.")
                 Interface.VoltarMenu()
-        except:  # noqa: E722
-            print("Opção inválida. Tente novamente.")
+        except ValueError as e:
+            print(f"Erro de valor: {e}. Tente novamente.")
             Interface.VoltarMenu()
+        except Exception as e:
+            print(f"Ocorreu um erro inesperado: {e}. Tente novamente.")
+            Interface.VoltarMenu()
+
             
