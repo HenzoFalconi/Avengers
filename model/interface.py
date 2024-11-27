@@ -84,7 +84,7 @@ class Interface():
             db = Database()
             db.connect()
 
-            query = "INSERT INTO heroi (nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca) VALUES (%s,%s,%s,%s,%s,%s,%s,)"
+            query = "INSERT INTO heroi (nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca) VALUES (%s,%s,%s,%s,%s,%s,%s)"
             values = (nome_heroi, nome_real, categoria, ', '.join(poderes), poder_principal, ', '.join(fraquezas), nivel_forca)
             # nome_heroi = ';drop database vingadores;--'
 
