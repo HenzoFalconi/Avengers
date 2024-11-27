@@ -1,12 +1,13 @@
 import mysql.connector
 from mysql.connector import Error
+from os import getenv
 
 class Database:
     def __init__(self):
-        self.host = 'localhost'
-        self.user = 'root'
-        self.password = 'admin'
-        self.database = 'vingadores'
+        self.host = getenv('BD_HOST')
+        self.user = getenv('BD_USER')
+        self.password = getenv('BD_PSWD')
+        self.database = getenv('BD_DATABASE')
 
     def connect(self):
         try:
@@ -22,5 +23,4 @@ class Database:
             print(f'Erro: {e}')
 
 Database().connect()
-
 
