@@ -1,6 +1,8 @@
+from tkinter import E
 from model.vingadores import Vingador
 import os
 import time
+from model.database import Database
 
 class Interface():
     animacao = True
@@ -52,6 +54,7 @@ class Interface():
 
     @staticmethod
     def Cadastro():
+        '''Exibe o formulário de cadastro de cada vingador e cria um novo vingador'''
         nome_heroi = input('Nome do herói: ')
         nome_real = input('Nome real: ')
         categoria = input('Categoria (Humano, Meta-humano, Androide, Deidade, Alienígena): ')
@@ -75,6 +78,22 @@ class Interface():
         
         vingador = Vingador(nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
         Vingador.lista_vingadores.append(vingador)
+
+        #Salva o vingador no banco de dados
+        try:
+            db = Database()
+            db.connect()
+
+            query = "INSERT INTO heroi (nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca) VALUES (%s,%s,%s,%s,%s,%s,%s,)"
+            values = (nome_heroi, nome_real, categoria, ', '.join(poderes), poder_principal, ', '.join(fraquezas), nivel_forca)
+            # nome_heroi = ';drop database vingadores;--'
+
+            db.execute_query(query, values)
+        except Exception as e:
+            print(f"Erro ao salvar vingador no banco de dados: {e}")
+        finally:
+            db.disconnect
+
         print(f'Vingador {nome_heroi} cadastrado com sucesso!')
         Interface.VoltarMenu()
 
