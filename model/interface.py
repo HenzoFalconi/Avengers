@@ -1,4 +1,3 @@
-from tkinter import E
 from model.vingadores import Vingador
 import os
 import time
@@ -15,7 +14,8 @@ class Interface():
 
     @staticmethod
     def menu():
-        if Interface.animacao is True:
+        os.system("cls")  # Limpa o console antes de exibir o menu
+        if Interface.animacao:  # Apenas para a animação inicial
             Interface.animacaoLinhas(''' 
 
 ████████╗██╗░░██╗███████╗  ██╗░░░░░███████╗░██████╗░███████╗███╗░░██╗██████╗░░█████╗░██████╗░██╗░░░██╗
@@ -31,11 +31,26 @@ class Interface():
             ██╔══██║░╚████╔╝░██╔══╝░░██║╚████║██║░░╚██╗██╔══╝░░██╔══██╗░╚═══██╗
             ██║░░██║░░╚██╔╝░░███████╗██║░╚███║╚██████╔╝███████╗██║░░██║██████╔╝
             ╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═════╝░
-''', 0.01)
+''', 0.005)
+            Interface.animacao = False
+        else:
+            print(''' 
 
-        Interface.animacao = False
-        print('\n')
-        print('Seja bem-viado! Escolha uma das opções abaixo\n')
+████████╗██╗░░██╗███████╗  ██╗░░░░░███████╗░██████╗░███████╗███╗░░██╗██████╗░░█████╗░██████╗░██╗░░░██╗
+╚══██╔══╝██║░░██║██╔════╝  ██║░░░░░██╔════╝██╔════╝░██╔════╝████╗░██║██╔══██╗██╔══██╗██╔══██╗╚██╗░██╔╝
+░░░██║░░░███████║█████╗░░  ██║░░░░░█████╗░░██║░░██╗░█████╗░░██╔██╗██║██║░░██║███████║██████╔╝░╚████╔╝░
+░░░██║░░░██╔══██║██╔══╝░░  ██║░░░░░██╔══╝░░██║░░╚██╗██╔══╝░░██║╚████║██║░░██║██╔══██║██╔══██╗░░╚██╔╝░░
+░░░██║░░░██║░░██║███████╗  ███████╗███████╗╚██████╔╝███████╗██║░╚███║██████╔╝██║░░██║██║░░██║░░░██║░░░
+░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚══════╝╚══════╝░╚═════╝░╚══════╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░
+
+            ░█████╗░██╗░░░██╗███████╗███╗░░██╗░██████╗░███████╗██████╗░░██████╗
+            ██╔══██╗██║░░░██║██╔════╝████╗░██║██╔════╝░██╔════╝██╔══██╗██╔════╝
+            ███████║╚██╗░██╔╝█████╗░░██╔██╗██║██║░░██╗░█████╗░░██████╔╝╚█████╗░
+            ██╔══██║░╚████╔╝░██╔══╝░░██║╚████║██║░░╚██╗██╔══╝░░██╔══██╗░╚═══██╗
+            ██║░░██║░░╚██╔╝░░███████╗██║░╚███║╚██████╔╝███████╗██║░░██║██████╔╝
+            ╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═════╝░
+''')
+        print('\nSeja bem-vido! Escolha uma das opções abaixo\n')
         print('1. Cadastrar vingador')
         print('2. Ver lista de vingadores ')
         print('3. Convocar vingador')
@@ -43,8 +58,9 @@ class Interface():
         print('5. Aplicar chip GPS')
         print('6. Emitir mandado de prisão')
         print('7. Sair')
-        Interface.ler_opcao_usuario(Interface.Cadastro, Interface.listar_vingadores, Interface.convocar_vingador, 
+        Interface.ler_opcao_usuario(Interface.Cadastro, Interface.listar_vingadores, Interface.convocar_vingador,
                                      Interface.aplicar_tornozeleira, Interface.aplicar_chip_gps, Interface.emitir_mandado, Interface.sair)
+
 
     @staticmethod
     def VoltarMenu():
@@ -106,7 +122,8 @@ class Interface():
                   f'{"Convocado".ljust(20)} | {"Tornozeleira".ljust(20)} | {"Chip GPS".ljust(20)}')
             for vingador in Vingador.lista_vingadores:
                 print(vingador)
-            Interface.VoltarMenu()
+
+        Interface.VoltarMenu()
 
     @staticmethod
     def convocar_vingador():
