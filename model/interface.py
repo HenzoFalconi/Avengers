@@ -85,7 +85,7 @@ class Interface():
         poderes = input('Poderes (separados por vírgula): ').split(",")
         poder_principal = input('Poder principal: ')
         fraquezas = input('Fraquezas (separadas por vírgula): ').split(",")
-        nivel_forca = int(input('Nível de força (0 a 10000): '))
+        nivel_forca = int(input('Nível de força (0 a 10000): '))0
 
         if nivel_forca < 0 or nivel_forca > 10000:
             print("Nível de força inválido!")
