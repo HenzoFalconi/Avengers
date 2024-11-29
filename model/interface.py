@@ -6,6 +6,10 @@ from model.database import Database
 class Interface():
     animacao = True
 
+    def __init__(self):
+        Vingador.carregar_herois()
+        self.menu()
+
     @staticmethod
     def animacaoLinhas(testiculo, duracao):
         for ch in testiculo:
@@ -92,8 +96,7 @@ class Interface():
             Interface.Cadastro()
             return
         
-        vingador = Vingador(nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
-        Vingador.lista_vingadores.append(vingador)
+        
 
         #Salva o vingador no banco de dados
         try:
@@ -104,7 +107,9 @@ class Interface():
             values = (nome_heroi, nome_real, categoria, ', '.join(poderes), poder_principal, ', '.join(fraquezas), nivel_forca)
             # nome_heroi = ';drop database vingadores;--'
 
-            db.execute_query(query, values)
+            cursor = db.execute_query(query, values)
+            Vingador(cursor.lastrowid, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
+            Vingador.lista_vingadores.append(Vingador)
         except Exception as e:
             print(f"Erro ao salvar vingador no banco de dados: {e}")
         finally:
