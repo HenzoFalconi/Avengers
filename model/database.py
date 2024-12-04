@@ -46,3 +46,4 @@ class Database:
         except Error as e:
             print(f'Erro ao executar SELECT: {e}')
             return None
+

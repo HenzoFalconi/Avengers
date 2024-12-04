@@ -1,3 +1,4 @@
+from datetime import datetime
 from model.database import Database
 
 class Vingador:
@@ -45,5 +46,50 @@ class Vingador:
                 Vingador(*heroi)
         except Exception as e:
             print(f'Erro: {e}')
+        finally:
+            db.disconnect()
+
+    # Método para salvar convocação no banco de dados
+    def convocar(self):
+        if not self.convocado:
+            try:
+                db = Database()
+                db.connect()
+
+                data_convocacao = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Pega a data e hora atual
+                status = 'Convocado'
+                
+                query = '''
+                    INSERT INTO convocacao (idheroi, data_convocacao, status) 
+                    VALUES (%s, %s, %s)
+                '''
+                db.execute_query(query, (self.id, data_convocacao, status))
+                self.convocado = True  # Atualiza o status de convocação para True
+                print(f'{self.nome_heroi} foi convocado com sucesso!')
+            except Exception as e:
+                print(f'Erro ao convocar: {e}')
+            finally:
+                db.disconnect()
+        else:
+            print(f'{self.nome_heroi} já está convocado!')
+
+    # Método para listar as convocações
+    @staticmethod
+    def listar_convocacoes():
+        try:
+            db = Database()
+            db.connect()
+
+            query = 'SELECT c.id, h.nome_heroi, c.data_convocacao, c.status FROM convocacao c JOIN heroi h ON c.idheroi = h.idheroi'
+            convocacoes = db.select(query)
+            
+            if convocacoes:
+                print(f'{"ID".ljust(5)} | {"Nome do Herói".ljust(20)} | {"Data da Convocação".ljust(20)} | {"Status".ljust(10)}')
+                for convocacao in convocacoes:
+                    print(f'{str(convocacao[0]).ljust(5)} | {convocacao[1].ljust(20)} | {convocacao[2].ljust(20)} | {convocacao[3].ljust(10)}')
+            else:
+                print('Não há convocações registradas.')
+        except Exception as e:
+            print(f'Erro ao listar convocações: {e}')
         finally:
             db.disconnect()
