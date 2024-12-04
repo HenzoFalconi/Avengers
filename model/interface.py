@@ -103,12 +103,12 @@ class Interface():
             db = Database()
             db.connect()
 
-            query = "INSERT INTO heroi (nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-            values = (nome_heroi, nome_real, categoria, ', '.join(poderes), poder_principal, ', '.join(fraquezas), nivel_forca)
+            query = "INSERT INTO heroi (nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca, idequipe) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+            values = (nome_heroi, nome_real, categoria, ', '.join(poderes), poder_principal, ', '.join(fraquezas), nivel_forca,idequipe)
             # nome_heroi = ';drop database vingadores;--'
 
             cursor = db.execute_query(query, values)
-            Vingador(cursor.lastrowid, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
+            Vingador(cursor.lastrowid, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca,idequipe)
             Vingador.lista_vingadores.append(Vingador)
         except Exception as e:
             print(f"Erro ao salvar vingador no banco de dados: {e}")

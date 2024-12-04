@@ -1,20 +1,16 @@
 from model.database import Database
 
-
 class Vingador:
     lista_vingadores = []
-    lista_poderes = [
-        ""
-    ]
-    
+
     class categoria_vingadores:
         HUMANO = "Humano"
         META_HUMANO = "Meta-humano"
         ALIENIGENA = "Alienígena"
         DEUS = "Deus"
         ANDROIDE = "Androide"
-    
-    def __init__(self, id,nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_de_forca):
+
+    def __init__(self, id, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_de_forca, idequipe):
         self.id = id
         self.nome_heroi = nome_heroi
         self.nome_real = nome_real
@@ -23,10 +19,11 @@ class Vingador:
         self.poder_principal = poder_principal
         self.fraquezas = fraquezas
         self.nivel_de_forca = nivel_de_forca
+        self.idequipe = idequipe
         self.convocado = False
         self.tornozeleira = False
         self.chip_gps = False
-        
+
         # Adicionar automaticamente à lista de Vingadores
         Vingador.lista_vingadores.append(self)
 
@@ -35,13 +32,14 @@ class Vingador:
                f'{"Convocado" if self.convocado else "Não Convocado".ljust(20)} | ' \
                f'{"Tornozeleira Aplicada" if self.tornozeleira else "Sem Tornozeleira".ljust(20)} | ' \
                f'{"Chip GPS Aplicado" if self.chip_gps else "Sem Chip GPS".ljust(20)}'
-    
+
+    @staticmethod
     def carregar_herois():
         try:
             db = Database()
             db.connect()
 
-            query = 'SELECT idheroi, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca FROM heroi'
+            query = 'SELECT idheroi, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca, idequipe FROM heroi'
             herois = db.select(query)
             for heroi in herois:
                 Vingador(*heroi)
@@ -49,4 +47,3 @@ class Vingador:
             print(f'Erro: {e}')
         finally:
             db.disconnect()
-
