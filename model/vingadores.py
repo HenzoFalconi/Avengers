@@ -23,7 +23,7 @@ class Vingador:
         self.idequipe = idequipe
         self.convocado = False
         self.tornozeleira = False
-        self.chip_gps = False
+        self.chipgps = False
 
         # Adicionar automaticamente à lista de Vingadores
         Vingador.lista_vingadores.append(self)
@@ -66,7 +66,7 @@ class Vingador:
             db = Database()
             db.connect()
  
-            query = """INSERT INTO chip_gps (idheroi, localizacao_atual, ultima_localizacao)
+            query = """INSERT INTO chipgps (idheroi, localizacao_atual, ultima_localizacao)
                        VALUES (%s, %s, %s)"""
             values = (idheroi, localizacao_atual, ultima_localizacao)
             db.execute_query(query, values)

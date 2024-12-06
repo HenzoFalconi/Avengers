@@ -40,7 +40,7 @@ class Interface:
             ██╔══██║░╚████╔╝░██╔══╝░░██║╚████║██║░░╚██╗██╔══╝░░██╔══██╗░╚═══██╗
             ██║░░██║░░╚██╔╝░░███████╗██║░╚███║╚██████╔╝███████╗██║░░██║██████╔╝
             ╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═════╝░
-''', 0.00001)
+''', 0.0005)
             Interface.animacao = False
         else:
             print(''' 
@@ -152,7 +152,7 @@ class Interface:
                 print(f'{"Nome do Herói".ljust(20)} | {"Nome Real".ljust(20)} | {"Categoria".ljust(20)} | '
                     f'{"Poderes".ljust(20)} | {"Poder_Principal".ljust(15)} | {"Fraquezas".ljust(25)} | '
                     f'{"Nivel_Forca".ljust(15)} | {"idequipe".ljust(17)}')
-                print("=" * 180)
+                print("=" * 179)
 
                 for vingador in Vingador.lista_vingadores:
                     print(
